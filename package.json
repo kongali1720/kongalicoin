@@ -1,4 +1,28 @@
-"scripts": {
-  "build": "echo 'Build step placeholder — add your actual build commands here'",
-  "test": "echo \"Error: no test specified\" && exit 1"
+{
+  "name": "kongalicoin",
+  "version": "1.0.0",
+  "description": "Official Repository by @kongali1720 – Next Generation Digital Asset",
+  "main": "app.js",
+  "scripts": {
+    "start": "firebase serve --only hosting",
+    "build": "echo 'Build placeholder: minify JS/CSS or compile TS if needed'",
+    "predeploy": "npm run build",
+    "deploy": "firebase deploy --only hosting",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "kongalicoin",
+    "crypto",
+    "blockchain",
+    "firebase",
+    "web3"
+  ],
+  "author": "Kong Ali <kongali1720@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^12.6.0"
+  },
+  "engines": {
+    "node": "18"
+  }
 }
