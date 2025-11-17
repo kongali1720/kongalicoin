@@ -1,0 +1,4 @@
+"scripts": {
+  "build": "echo 'Build step placeholder — add your actual build commands here'",
+  "test": "echo \"Error: no test specified\" && exit 1"
+}
