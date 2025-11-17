@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KongaliCoin - Buy and Sell Crypto Securely</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        .pulse-animation {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .7; }
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .modal-fade {
+            animation: modalFade 0.3s ease-in;
+        }
+        @keyframes modalFade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .user-menu {
+            display: none;
+        }
+        .user-menu.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center space-x-4">
+                    <img src="https://raw.githubusercontent.com/kongali1720/kongali1720.github.io/main/kongalicoin.png" alt="KongaliCoin Logo" class="h-12 w-12">
+                    <span class="text-2xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">KongaliCoin</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="text-gray-700 hover:text-purple-600 font-medium transition">Features</a>
+                    <a href="#pricing" class="text-gray-700 hover:text-purple-600 font-medium transition">Pricing</a>
+                    <a href="#about" class="text-gray-700 hover:text-purple-600 font-medium transition">About</a>
+                    
+                    <!-- Auth Buttons (show when not logged in) -->
+                    <div id="authButtons" class="flex items-center space-x-4">
+                        <button onclick="showLoginModal()" class="text-purple-600 font-semibold hover:text-purple-700 transition">Login</button>
+                        <button onclick="showSignUpModal()" class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg transition">Sign Up</button>
+                    </div>
+
+                    <!-- User Menu (show when logged in) -->
+                    <div id="userMenu" class="relative hidden">
+                        <button onclick="toggleUserDropdown()" class="flex items-center space-x-2 bg-purple-100 px-4 py-2 rounded-lg hover:bg-purple-200 transition">
+                            <div class="w-8 h-8 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold" id="userAvatar">U</div>
+                            <span id="userName" class="font-semibold text-gray-800">User</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div id="userDropdown" class="user-menu absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl py-2">
+                            <a href="#" onclick="showDashboard()" class="block px-4 py-2 text-gray-800 hover:bg-purple-50 transition">Dashboard</a>
+                            <a href="#" onclick="showProfile()" class="block px-4 py-2 text-gray-800 hover:bg-purple-50 transition">Profile</a>
+                            <hr class="my-2">
+                            <a href="#" onclick="handleLogout()" class="block px-4 py-2 text-red-600 hover:bg-red-50 transition">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white py-24 fade-in">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h1 class="text-5xl md:text-6xl font-black mb-6 leading-tight">Buy and Sell Crypto Securely</h1>
+                    <p class="text-xl mb-8 text-purple-100 leading-relaxed">Trade 350+ cryptocurrencies on KongaliCoin, the most trusted and secure crypto trading platform.</p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button onclick="showSignUpModal()" class="bg-white text-purple-600 px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition shadow-xl">Get Started</button>
+                        <button onclick="scrollToSection('features')" class="border-2 border-white text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-purple-600 transition">Learn More</button>
+                    </div>
+                    <div class="mt-12 flex items-center space-x-8">
+                        <div>
+                            <div class="text-3xl font-bold">350+</div>
+                            <div class="text-purple-200">Cryptocurrencies</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-bold">10M+</div>
+                            <div class="text-purple-200">Users Worldwide</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-bold">$50B+</div>
+                            <div class="text-purple-200">Trading Volume</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border border-white/20">
+                        <img src="https://raw.githubusercontent.com/kongali1720/kongali1720.github.io/main/kongalicoin.png" alt="KongaliCoin" class="w-full max-w-md mx-auto pulse-animation">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-black mb-4 bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">Why Choose KongaliCoin?</h2>
+                <p class="text-xl text-gray-600">The most advanced crypto trading platform with enterprise-grade security</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-lg card-hover">
+                    <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Bank-Level Security</h3>
+                    <p class="text-gray-600 leading-relaxed">Your assets are protected with industry-leading security measures including cold storage and 2FA authentication.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg card-hover">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Lightning Fast</h3>
+                    <p class="text-gray-600 leading-relaxed">Execute trades in milliseconds with our high-performance trading engine and advanced order types.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg card-hover">
+                    <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Low Fees</h3>
+                    <p class="text-gray-600 leading-relaxed">Trade with competitive fees starting at 0.1% and get even lower rates with our VIP program.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Crypto Showcase -->
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-black mb-4">Popular Cryptocurrencies</h2>
+                <p class="text-xl text-gray-600">Trade the most popular digital assets</p>
+            </div>
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="bg-gradient-to-br from-orange-400 to-orange-600 p-6 rounded-2xl text-white card-hover cursor-pointer" onclick="showTradeModal('Bitcoin')">
+                    <div class="text-3xl mb-2">₿</div>
+                    <div class="font-bold text-xl">Bitcoin</div>
+                    <div class="text-orange-100">BTC</div>
+                    <div class="mt-4 text-2xl font-bold">$45,230</div>
+                    <div class="text-green-200">+2.5%</div>
+                </div>
+                <div class="bg-gradient-to-br from-blue-400 to-blue-600 p-6 rounded-2xl text-white card-hover cursor-pointer" onclick="showTradeModal('Ethereum')">
+                    <div class="text-3xl mb-2">Ξ</div>
+                    <div class="font-bold text-xl">Ethereum</div>
+                    <div class="text-blue-100">ETH</div>
+                    <div class="mt-4 text-2xl font-bold">$3,120</div>
+                    <div class="text-green-200">+1.8%</div>
+                </div>
+                <div class="bg-gradient-to-br from-purple-400 to-purple-600 p-6 rounded-2xl text-white card-hover cursor-pointer" onclick="showTradeModal('Solana')">
+                    <div class="text-3xl mb-2">◎</div>
+                    <div class="font-bold text-xl">Solana</div>
+                    <div class="text-purple-100">SOL</div>
+                    <div class="mt-4 text-2xl font-bold">$98.50</div>
+                    <div class="text-green-200">+5.2%</div>
+                </div>
+                <div class="bg-gradient-to-br from-green-400 to-green-600 p-6 rounded-2xl text-white card-hover cursor-pointer" onclick="showTradeModal('Tether')">
+                    <div class="text-3xl mb-2">₮</div>
+                    <div class="font-bold text-xl">Tether</div>
+                    <div class="text-green-100">USDT</div>
+                    <div class="mt-4 text-2xl font-bold">$1.00</div>
+                    <div class="text-gray-200">0.0%</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-black mb-4 bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">Simple, Transparent Pricing</h2>
+                <p class="text-xl text-gray-600">No hidden fees. Pay only for what you trade.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2">Starter</h3>
+                    <div class="text-4xl font-black mb-4">0.26%<span class="text-xl text-gray-500">/trade</span></div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Basic Trading</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>24/7 Support</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Mobile App</li>
+                    </ul>
+                    <button onclick="showSignUpModal()" class="w-full bg-gray-800 text-white py-3 rounded-lg font-bold hover:bg-gray-900 transition">Get Started</button>
+                </div>
+                <div class="bg-gradient-to-br from-purple-600 to-indigo-600 p-8 rounded-2xl shadow-xl text-white transform scale-105">
+                    <div class="bg-yellow-400 text-purple-900 px-3 py-1 rounded-full text-sm font-bold inline-block mb-4">POPULAR</div>
+                    <h3 class="text-2xl font-bold mb-2">Pro</h3>
+                    <div class="text-4xl font-black mb-4">0.16%<span class="text-xl text-purple-200">/trade</span></div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center"><svg class="w-5 h-5 text-yellow-300 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Advanced Trading</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-yellow-300 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Priority Support</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-yellow-300 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>API Access</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-yellow-300 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Lower Fees</li>
+                    </ul>
+                    <button onclick="showSignUpModal()" class="w-full bg-white text-purple-600 py-3 rounded-lg font-bold hover:bg-gray-50 transition shadow-lg">Get Started</button>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2">Enterprise</h3>
+                    <div class="text-4xl font-black mb-4">0.10%<span class="text-xl text-gray-500">/trade</span></div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Institutional Grade</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Dedicated Manager</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Custom Solutions</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Lowest Fees</li>
+                    </ul>
+                    <button onclick="showContactModal()" class="w-full bg-gray-800 text-white py-3 rounded-lg font-bold hover:bg-gray-900 transition">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-black mb-6">Trusted by Millions of Traders Worldwide</h2>
+                    <p class="text-xl text-gray-600 mb-6 leading-relaxed">KongaliCoin is the leading cryptocurrency exchange platform, serving over 10 million users across 150+ countries.</p>
+                </div>
+                <div class="bg-gradient-to-br from-purple-500 to-indigo-600 p-12 rounded-3xl text-white shadow-2xl">
+                    <div class="text-center mb-8">
+                        <div class="text-6xl font-black mb-2">$50B+</div>
+                        <div class="text-2xl text-purple-200">24h Trading Volume</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-24 hero-gradient text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl md:text-5xl font-black mb-6">Ready to Start Trading?</h2>
+            <p class="text-xl mb-8">Start trading today with industry-leading security and support</p>
+            <button onclick="showSignUpModal()" class="bg-white text-purple-600 px-12 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition shadow-xl">Create Free Account</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center text-gray-400">
+                <p>&copy; 2024 KongaliCoin. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-8 shadow-2xl transform transition-all modal-fade">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">Welcome Back</h3>
+                <button onclick="closeModal('loginModal')" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <form onsubmit="handleLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
+                    <input type="email" name="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="john@example.com">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Password</label>
+                    <input type="password" name="password" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="••••••••">
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-3 rounded-lg font-bold hover:shadow-lg transition">Login</button>
+                <p class="text-sm text-gray-600 text-center">Don't have an account? <a href="#" onclick="closeModal('loginModal'); showSignUpModal();" class="text-purple-600 font-semibold hover:underline">Sign Up</a></p>
+            </form>
+            <div id="loginError" class="mt-4 p-3 bg-red-100 text-red-700 rounded-lg hidden"></div>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div id="signUpModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-8 shadow-2xl transform transition-all modal-fade">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">Create Account</h3>
+                <button onclick="closeModal('signUpModal')" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <form onsubmit="handleSignUp(event)" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
+                    <input type="text" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="John Doe">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
+                    <input type="email" name="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="john@example.com">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Password</label>
+                    <input type="password" name="password" required minlength="6" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="••••••••">
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-3 rounded-lg font-bold hover:shadow-lg transition">Create Account</button>
+                <p class="text-sm text-gray-600 text-center">Already have an account? <a href="#" onclick="closeModal('signUpModal'); showLoginModal();" class="text-purple-600 font-semibold hover:underline">Sign In</a></p>
+            </form>
+            <div id="signUpError" class="mt-4 p-3 bg-red-100 text-red-700 rounded-lg hidden"></div>
+            <div id="signUpSuccess" class="mt-4 p-3 bg-green-100 text-green-700 rounded-lg hidden"></div>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-8 shadow-2xl transform transition-all modal-fade">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">Contact Sales</h3>
+                <button onclick="closeModal('contactModal')" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <form onsubmit="handleContact(event)" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Company Name</label>
+                    <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Acme Corp">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
+                    <input type="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="business@example.com">
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-3 rounded-lg font-bold hover:shadow-lg transition">Submit Request</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Trade Modal -->
+    <div id="tradeModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-8 shadow-2xl transform transition-all modal-fade">
+            <div class="flex justify-between items-center mb-6">
+                <h3 id="tradeModalTitle" class="text-2xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">Trade Bitcoin</h3>
+                <button onclick="closeModal('tradeModal')" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="text-center mb-6">
+                <p class="text-gray-600">Sign up to start trading this cryptocurrency</p>
+            </div>
+            <button onclick="closeModal('tradeModal'); showSignUpModal();" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-3 rounded-lg font-bold hover:shadow-lg transition">Create Account to Trade</button>
+        </div>
+    </div>
+
+    <!-- Dashboard Modal -->
+    <div id="dashboardModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-4xl w-full p-8 shadow-2xl transform transition-all modal-fade max-h-screen overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">Your Dashboard</h3>
+                <button onclick="closeModal('dashboardModal')" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-gradient-to-br from-purple-100 to-purple-200 p-6 rounded-xl">
+                    <div class="text-gray-700 text-sm font-semibold mb-2">Total Balance</div>
+                    <div class="text-3xl font-bold text-purple-900">$0.00</div>
+                </div>
+                <div class="bg-gradient-to-br from-blue-100 to-blue-200 p-6 rounded-xl">
+                    <div class="text-gray-700 text-sm font-semibold mb-2">24h Change</div>
+                    <div class="text-3xl font-bold text-blue-900">+0.00%</div>
+                </div>
+                <div class="bg-gradient-to-br from-green-100 to-green-200 p-6 rounded-xl">
+                    <div class="text-gray-700 text-sm font-semibold mb-2">Total Trades</div>
+                    <div class="text-3xl font-bold text-green-900">0</div>
+                </div>
+            </div>
+            <div id="dashboardContent" class="bg-gray-50 p-6 rounded-xl">
+                <h4 class="font-bold text-lg mb-4">Recent Activity</h4>
+                <p class="text-gray-600 text-center py-8">No trading activity yet. Start trading to see your history here!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        // Firebase Configuration (DEMO - Ganti dengan config Anda sendiri)
+        const firebaseConfig = {
+            apiKey: "AIzaSyDemo-ReplaceWithYourOwnKey",
+            authDomain: "kongalicoin-demo.firebaseapp.com",
+            projectId: "kongalicoin-demo",
+            storageBucket: "kongalicoin-demo.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:demo"
+        };
+
+        // Initialize Firebase
+        let app, auth, db;
+        try {
+            app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+        } catch (error) {
+            console.log('Firebase Demo Mode: Using localStorage instead');
+            // Fallback to localStorage for demo
+            auth = null;
+            db = null;
+        }
+
+        let currentUser = null;
+
+        // Auth State Observer
+        if (auth) {
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    currentUser = user;
+                    updateUIForLoggedInUser(user);
+                } else {
+                    currentUser = null;
+                    updateUIForLoggedOutUser();
+                }
+            });
+        } else {
+            // Check localStorage for demo
+            const savedUser = localStorage.getItem('demoUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                updateUIForLoggedInUser(currentUser);
+            }
+        }
+
+        // Sign Up Handler
+        window.handleSignUp = async function(event) {
+            event.preventDefault();
+            const form = event.target;
+            const name = form.name.value;
+            const email = form.email.value;
+            const password = form.password.value;
+
+            const errorDiv = document.getElementById('signUpError');
+            const successDiv = document.getElementById('signUpSuccess');
+            errorDiv.classList.add('hidden');
+            successDiv.classList.add('hidden');
+
+            try {
+                if (auth) {
+                    // Real Firebase
+                    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                    const user = userCredential.user;
+
+                    await updateProfile(user, { displayName: name });
+
+                    await setDoc(doc(db, 'users', user.uid), {
+                        name: name,
+                        email: email,
+                        createdAt: serverTimestamp(),
+                        balance: 0,
+                        totalTrades: 0
+                    });
+
+                    successDiv.textContent = 'Account created successfully! Welcome ' + name;
+                    successDiv.classList.remove('hidden');
+                    
+                    setTimeout(() => {
+                        closeModal('signUpModal');
+                        form.reset();
+                    }, 2000);
+                } else {
+                    // Demo Mode - localStorage
+                    const users = JSON.parse(localStorage.getItem('demoUsers') || '[]');
+                    
+                    if (users.find(u => u.email === email)) {
+                        throw new Error('Email already exists');
+                    }
+
+                    const newUser = {
+                        uid: 'demo_' + Date.now(),
+                        name: name,
+                        email: email,
+                        displayName: name,
+                        createdAt: new Date().toISOString(),
+                        balance: 0,
+                        totalTrades: 0
+                    };
+
+                    users.push(newUser);
+                    localStorage.setItem('demoUsers', JSON.stringify(users));
+                    localStorage.setItem('demoUser', JSON.stringify(newUser));
+                    
+                    currentUser = newUser;
+                    updateUIForLoggedInUser(newUser);
+
+                    successDiv.textContent = '✅ Account created! Welcome ' + name;
+                    successDiv.classList.remove('hidden');
+                    
+                    setTimeout(() => {
+                        closeModal('signUpModal');
+                        form.reset();
+                    }, 2000);
+                }
+            } catch (error) {
+                errorDiv.textContent = '❌ ' + (error.message || 'An error occurred');
+                errorDiv.classList.remove('hidden');
+            }
+        };
+
+        // Login Handler
+        window.handleLogin = async function(event) {
+            event.preventDefault();
+            const form = event.target;
+            const email = form.email.value;
+            const password = form.password.value;
+
+            const errorDiv = document.getElementById('loginError');
+            errorDiv.classList.add('hidden');
+
+            try {
+                if (auth) {
+                    // Real Firebase
+                    await signInWithEmailAndPassword(auth, email, password);
+                    closeModal('loginModal');
+                    form.reset();
+                } else {
+                    // Demo Mode
+                    const users = JSON.parse(localStorage.getItem('demoUsers') || '[]');
+                    const user = users.find(u => u.email === email);
+
+                    if (!user) {
+                        throw new Error('User not found. Please sign up first.');
+                    }
+
+                    localStorage.setItem('demoUser', JSON.stringify(user));
+                    currentUser = user;
+                    updateUIForLoggedInUser(user);
+                    closeModal('loginModal');
+                    form.reset();
+                }
+            } catch (error) {
+                errorDiv.textContent = '❌ ' + (error.message || 'Invalid credentials');
+                errorDiv.classList.remove('hidden');
+            }
+        };
+
+        // Logout Handler
+        window.handleLogout = async function() {
+            try {
+                if (auth) {
+                    await signOut(auth);
+                } else {
+                    localStorage.removeItem('demoUser');
+                    currentUser = null;
+                    updateUIForLoggedOutUser();
+                }
+            } catch (error) {
+                alert('Error logging out: ' + error.message);
+            }
+        };
+
+        // UI Update Functions
+        function updateUIForLoggedInUser(user) {
+            document.getElementById('authButtons').style.display = 'none';
+            document.getElementById('userMenu').classList.remove('hidden');
+            
+            const displayName = user.displayName || user.name || user.email.split('@')[0];
+            document.getElementById('userName').textContent = displayName;
+            document.getElementById('userAvatar').textContent = displayName.charAt(0).toUpperCase();
+        }
+
+        function updateUIForLoggedOutUser() {
+            document.getElementById('authButtons').style.display = 'flex';
+            document.getElementById('userMenu').classList.add('hidden');
+        }
+
+        // Modal Functions
+        window.showLoginModal = function() {
+            document.getElementById('loginModal').classList.remove('hidden');
+            document.getElementById('loginModal').classList.add('flex');
+        };
+
+        window.showSignUpModal = function() {
+            document.getElementById('signUpModal').classList.remove('hidden');
+            document.getElementById('signUpModal').classList.add('flex');
+        };
+
+        window.showContactModal = function() {
+            document.getElementById('contactModal').classList.remove('hidden');
+            document.getElementById('contactModal').classList.add('flex');
+        };
+
+        window.showTradeModal = function(cryptoName) {
+            if (!currentUser) {
+                showSignUpModal();
+                return;
+            }
+            document.getElementById('tradeModalTitle').textContent = 'Trade ' + cryptoName;
+            document.getElementById('tradeModal').classList.remove('hidden');
+            document.getElementById('tradeModal').classList.add('flex');
+        };
+
+        window.showDashboard = function() {
+            if (!currentUser) {
+                showLoginModal();
+                return;
+            }
+            document.getElementById('dashboardModal').classList.remove('hidden');
+            document.getElementById('dashboardModal').classList.add('flex');
+        };
+
+        window.showProfile = function() {
+            if (!currentUser) {
+                showLoginModal();
+                return;
+            }
+            alert('Profile page coming soon!');
+        };
+
+        window.closeModal = function(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+            document.getElementById(modalId).classList.remove('flex');
+        };
+
+        window.toggleUserDropdown = function() {
+            document.getElementById('userDropdown').classList.toggle('active');
+        };
+
+        window.scrollToSection = function(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        };
+
+        window.handleContact = function(event) {
+            event.preventDefault();
+            alert('Thank you! Our team will contact you soon.');
+            closeModal('contactModal');
+        };
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(event) {
+            const userMenu = document.getElementById('userMenu');
+            if (userMenu && !userMenu.contains(event.target)) {
+                document.getElementById('userDropdown').classList.remove('active');
+            }
+
+            // Close modals when clicking backdrop
+            const modals = ['signUpModal', 'loginModal', 'contactModal', 'tradeModal', 'dashboardModal'];
+            modals.forEach(modalId => {
+                const modal = document.getElementById(modalId);
+                if (event.target === modal) {
+                    closeModal(modalId);
+                }
+            });
+        });
+
+        console.log('🚀 KongaliCoin dengan Firebase Backend siap!');
+        console.log('📝 Mode: ' + (auth ? 'Firebase Real' : 'Demo (localStorage)'));
+    </script>
+</body>
+</html>
