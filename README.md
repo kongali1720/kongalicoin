@@ -1,6 +1,9 @@
 # 🪙 KONGALICOIN – Next Generation Digital Asset  
 Official Repository by **@kongali1720**
 
+[![Visit KongaliCoin](https://img.shields.io/badge/Visit-KongaliCoin-blue?style=for-the-badge&logo=ethereum)](https://kongalicoin.id)
+
+
 [![Made with Love](https://img.shields.io/badge/Made%20with-%E2%9D%A4-red)]()
 [![Built with Firebase](https://img.shields.io/badge/Firebase-Enabled-orange?logo=firebase)]()
 [![Cloudflare SEC](https://img.shields.io/badge/Secured%20By-Cloudflare-blue?logo=cloudflare)]()
